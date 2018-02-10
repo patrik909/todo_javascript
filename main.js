@@ -11,7 +11,7 @@ const doneArray = ["Volvo", "Villa", "Fru", "Vovve"];
 newTodo.addEventListener('submit', function(event){
     event.preventDefault();
     console.log(whatTodo.value);
-    todoArray.push(whatTodo.value);
+    window.todoArray.push(whatTodo.value);
 })
 
 console.log(doneArray);
