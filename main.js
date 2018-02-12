@@ -4,17 +4,39 @@ const newTodo = document.getElementById('newTodo');
 const todoList = document.getElementById('todos');
 const doneList = document.getElementById('dones');
 
-const todoArray = ["Pengar", "Framgång", "Magrutor", "Utbildning"];
+const todoArray = ["en sträng"];
+//const doneArray = ["Volvo", "Villa", "Fru", "Vovve"];
 
-const doneArray = ["Volvo", "Villa", "Fru", "Vovve"];
+/* FÖR ATT KOLLA OM strängen finns
+var exists = todoArray.includes('en sträng');
 
-newTodo.addEventListener('submit', function(event){
+if(exists == true){
+    console.log("YES")
+} else {
+    console.log("NO")
+} */
+
+/* --------------------------- */
+/* ------- ADDA EN TODO ------ */
+/* --------------------------- */
+
+newTodo.addEventListener('submit', addTodo)
+
+function addTodo(event){
     event.preventDefault();
-    console.log(whatTodo.value);
-    window.todoArray.push(whatTodo.value);
-})
+    todovalue = whatTodo.value;
+    todoArray.push(todovalue);
+    console.log(todoArray);
 
-console.log(doneArray);
+}
+
+addTodo();
+
+console.log(todoArray);
+
+////----------------------------------////
+
+//console.log(doneArray);
 
 /* FOR LOOP FÖR ATT LOOPA UT TODOS + INNEHÅLL.. */
 for (i = 0; i < todoArray.length; i++) {
@@ -64,3 +86,5 @@ removeAllButton.addEventListener('click', function(){
     todoList.remove();
 })
 ////----------------------------------////
+
+//IF todoAyyay.contains(whatTodo.value)
