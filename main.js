@@ -4,7 +4,7 @@ const newTodo = document.getElementById('newTodo');
 const todoList = document.getElementById('todos');
 const doneList = document.getElementById('dones');
 
-const todoArray = ["en sträng"];
+const todoArray = [];
 //const doneArray = ["Volvo", "Villa", "Fru", "Vovve"];
 
 /* FÖR ATT KOLLA OM strängen finns
@@ -21,70 +21,42 @@ if(exists == true){
 /* --------------------------- */
 
 newTodo.addEventListener('submit', addTodo)
-
+// antaingen göra en funktion som lägger till det senaste som lagts till i arrayen till loopen, just nu appendas allt om och om igen.
 function addTodo(event){
     event.preventDefault();
     todovalue = whatTodo.value;
     todoArray.push(todovalue);
     console.log(todoArray);
+    viewTodo();
+}
+
+
+/* --------------------------- */
+/* -------- VISA TODOS ------- */
+/* --------------------------- */
+
+function viewTodo(){
+
+    let myTodos="";
+
+    for (const todos of todoArray){
+        myTodos += `
+            <div class="todoBox">
+            <p>${todos}</p>
+            <button id="todoCompleteButton" class="completeButton">v</button>
+            <button id="todoRemoveButton" class="removeButton">x</button>
+            </div>
+        ` 
+    }
+
+    todoList.innerHTML = myTodos; 
 
 }
 
-addTodo();
+viewTodo();
 
-console.log(todoArray);
+///---------------------------///
+
+ /* KNAPP FÖR ATT TA BORT ALLA TODOS */
 
 ////----------------------------------////
-
-//console.log(doneArray);
-
-/* FOR LOOP FÖR ATT LOOPA UT TODOS + INNEHÅLL.. */
-for (i = 0; i < todoArray.length; i++) {
-    
-    const todoItem = document.createTextNode(todoArray[i]);
-    
-    const todoParagraph = document.createElement('p');
-    const todoCompleteButton = document.createElement('button');
-    todoCompleteButton.setAttribute('class', 'completeButton');
-    todoCompleteButton.innerText="v";
-   
-    const todoRemoveButton = document.createElement('button');
-    todoRemoveButton.setAttribute('class', 'removeButton');
-    todoRemoveButton.innerText="x";
-   
-    const todoBox = document.createElement('div');
-    todoBox.setAttribute('class', 'todoBox');
-    
-    todoParagraph.appendChild(todoItem);
-    todoBox.appendChild(todoParagraph);
-    todoBox.appendChild(todoCompleteButton);
-    todoBox.appendChild(todoRemoveButton);
-    todoList.appendChild(todoBox);
-    
-    todoCompleteButton.addEventListener('click', function(){
-        
-       console.log(todoItem);
-        
-    })
-    
-     todoRemoveButton.addEventListener('click', function(){
-        
-        todoBox.remove(this);
-
-    })
-}
-////----------------------------------////
-
-/* KNAPP FÖR ATT TA BORT ALLA TODOS */
-const removeAllButton = document.createElement('button');
-removeAllButton.setAttribute('class', 'removeAllButton');
-removeAllButton.innerText=" X RENSA TODOS X ";
-
-todoList.appendChild(removeAllButton);
-
-removeAllButton.addEventListener('click', function(){
-    todoList.remove();
-})
-////----------------------------------////
-
-//IF todoAyyay.contains(whatTodo.value)

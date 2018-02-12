@@ -7,6 +7,32 @@ button{
     border-radius: 5px;
 }
 
+main{
+    display: flex;
+    text-align: center;
+    width: 700px;
+}
+
+#todoWrapper{
+    width: 50%;
+}
+
+#doneWrapper{
+    width: 50%;
+}
+
+.todoBox{
+    width: 100%;
+    background: lightgrey;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 5px;    
+}
+
+.todoBox p{
+    margin: 0;
+}
+
 .completeButton{
     background: green;
 }
