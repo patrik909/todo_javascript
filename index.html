@@ -6,25 +6,27 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-    
-    <form id="newTodo">
-       <input type="text" name="whatTodo" id="whatTodo">
-       <input type="submit" name="addTodoButton" id="addTodoButton">
-    </form>
+    <header>  
+        <form id="newTodo">
+            <input type="text" name="whatTodo" id="whatTodo">
+            <input type="submit" name="addTodoButton" id="addTodoButton">
+            <div id="messageBox"></div>
+        </form>
+    </header>  
     <main>
-    <div id="todoWrapper">
-    TODOS
-    <div id="todos">
-    </div>
-</div>
-   <div id="doneWrapper">
-   DONES
-    <div id="dones">
-        
-    </div>
+        <div id="todoWrapper">
+            TODOS
+            <div id="todos"></div>
+            </div>
+        <div id="doneWrapper">
+            DONES
+            <div id="dones"></div>
         </div>
+        <div id="deleteAll"></div>    
     </main>
+    <footer>
         
+    </footer>   
     <script src="main.js"></script>
 </body>
 </html>
