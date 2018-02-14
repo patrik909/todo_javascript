@@ -4,7 +4,6 @@ const messageBox = document.getElementById('messageBox');
 
 const todoList = document.getElementById('todos');
 const doneList = document.getElementById('dones');
-const deleteAll = document.getElementById('deleteAll');
 
 const todoArray = [];
 const doneArray = [];
@@ -12,6 +11,7 @@ const doneArray = [];
 /* --------------------------- */
 /* ------- ADDA EN TODO ------ */
 /* --------------------------- */
+
 
 newTodo.addEventListener('submit', function(){
     addTodo(event);
@@ -21,10 +21,18 @@ function addTodo(){
 
     event.preventDefault();
     const todoValue = whatTodo.value;
+    const searchValue = todoArray.indexOf(todoValue);
+    console.log(searchValue)
+
+    
     if(todoValue == ""){
         messageBox.innerHTML=`
             <p>DU MATADE INTE IN NÅGOT</p>
         `   
+    } else if(searchValue !== -1){
+        messageBox.innerHTML=`
+            <p>TODO FINNS REDAN</p>
+        ` 
     } else {
         messageBox.innerHTML="";
         todoArray.push(todoValue);
@@ -48,9 +56,9 @@ function completeTodo(){
     const value = todoBoxParagraph.textContent;
     doneArray.push(value);
     
-    var searchValue = todoArray.indexOf(value);
-    if(searchValue == 1){
-        todoArray.splice(searchValue, 1)
+    const searchValue = todoArray.indexOf(value);
+    if(searchValue !== -1){ 
+        todoArray.splice(searchValue, 1);
     }
 
     viewDones();
@@ -66,10 +74,10 @@ function remove(){
     const todoBox = this.parentElement
     const todoBoxParagraph = todoBox.getElementsByTagName('p')[0];
     const value = todoBoxParagraph.textContent;
-    
-    var searchValue = todoArray.indexOf(value);
-    if(searchValue == 1){
-        todoArray.splice(searchValue, 1)
+
+    const searchValue = todoArray.indexOf(value);
+    if(searchValue !== -1){ 
+        todoArray.splice(searchValue, 1);
     }
     
 }
@@ -79,10 +87,9 @@ function remove(){
 /* - TA BORT ALLA TODOS & DONES - */
 /* ------------------------------ */
 
-deleteAll.innerHTML=`<p id="deleteTodos">DELETE ALL TODOS</p>
-<p id="deleteDones">DELETE ALL DONES</p>`;
-
 const deleteTodos = document.getElementById('deleteTodos');
+
+const deleteAll = document.getElementById('deleteAll');
 
 const deleteDones = document.getElementById('deleteDones');
 
@@ -91,9 +98,16 @@ deleteTodos.addEventListener('click', function(){
     emptyTodos();
 })
 
+deleteAll.addEventListener('click', function(){
+    emptyTodos();
+    emptyDones();
+})
+
 deleteDones.addEventListener('click', function(){
     emptyDones();
 })
+
+
 
 function emptyTodos(){
 
@@ -133,8 +147,8 @@ function viewTodo(){
         myTodos += `
             <div class="todoBox" id=${i++}>
                 <p>${todos}</p>
-                <button id="todoCompleteButton" class="completeButton">v</button>
-                <button id="todoRemoveButton" class="removeButton">x</button>
+                <button id="todoCompleteButton" class="completeButton">V</button>
+                <button id="todoRemoveButton" class="removeButton">X</button>
             </div>
         ` 
 
@@ -173,7 +187,7 @@ function viewDones(){
         myDones += `
             <div class="todoBox" id=${i++}>
                 <p>${dones}</p>
-                <button id="todoRemoveButton" class="removeButton">x</button>
+                <button id="todoRemoveButton" class="removeButton">X</button>
             </div>
         ` 
     }  
@@ -185,5 +199,7 @@ function viewDones(){
     for(i = 0; i < removeButton.length; i++){
         removeButton[i].addEventListener('click', remove)
     }
+    console.log(todoArray)
+    console.log(doneArray)
     
 }

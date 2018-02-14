@@ -1,46 +1,88 @@
 body{
-    font-family: "avenir";
-}
-
-button{
-    color: white;
-    border-radius: 5px;
-}
-
-main{
-    display: flex;
-    text-align: center;
-    width: 700px;
-}
-
-#todoWrapper{
-    width: 50%;
-}
-
-#doneWrapper{
-    width: 50%;
-}
-
-.todoBox{
-    width: 100%;
-    background: lightgrey;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 5px;    
-}
-
-.todoBox p{
+    font-family: 'Open Sans', sans-serif;
+    background: #ededed;
+    font-size: 12px;
+    padding: 0;
     margin: 0;
 }
 
-.completeButton{
-    background: green;
+/*------ GENERAL -----*/
+
+main{
+    text-align: center;
+    width: 650px;
+    background: #f9f9f9;
+    margin: auto;
+    
 }
 
-.removeButton{
-    background: red;
+form{
+    padding: 10px;
+    background: #a0a0a0;
 }
 
-.removeAllButton{
-    background: red;
+#whatTodo{
+    font-size: 0.8em;
+    letter-spacing: 1px;
+    padding: 8px;
+    width: 300px;
+    border: none;
 }
+
+h1{
+    font-size: 2.5em;
+    letter-spacing: 5px;
+    font-weight: 800;
+    font-weight: 900;
+}
+
+.todoBox{
+    width: 70%;
+    padding: 15px;
+    padding-bottom: 20px;
+    margin: auto;
+    background: #eee9e9;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.todoBox p{
+    font-size: 1.2em;
+    margin: 0;
+    margin-bottom: 12px;
+}
+
+.todoBox button{
+    background: #363636;
+    border-radius: 25px;
+    border: none;
+    height: 23px;
+    width: 23px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.6em;
+    font-style: italic;
+}
+
+/*------------------*/
+
+/*--- DELETE ALL ---*/
+
+#delete{
+    display: flex;
+    justify-content: center;
+}
+
+#delete button{
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    border: none;
+    background: none;
+    margin: 20px 30px 50px 30px;
+}
+
+#delete button:hover{
+    text-decoration: underline;    
+}
+
+/*------------------*/

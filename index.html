@@ -3,30 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>TODO</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800|Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-    <header>  
-        <form id="newTodo">
-            <input type="text" name="whatTodo" id="whatTodo">
+    <header>
+        <div class="banner"></div>
+    </header>  
+    <main>
+               <form id="newTodo">
+            <input type="text" name="whatTodo" id="whatTodo" placeholder="WHAT TODO..">
             <input type="submit" name="addTodoButton" id="addTodoButton">
             <div id="messageBox"></div>
         </form>
-    </header>  
-    <main>
+        <div id="wrapper">
         <div id="todoWrapper">
-            TODOS
+            <h1>YOUR TODOS</h1>
             <div id="todos"></div>
             </div>
         <div id="doneWrapper">
-            DONES
+            <h1>YOUR DONES</h1>
             <div id="dones"></div>
         </div>
-        <div id="deleteAll"></div>    
-    </main>
-    <footer>
-        
-    </footer>   
+    </div> 
+        <div id="delete">
+            <button id="deleteTodos">
+                DELETE ALL TODOS
+            </button>
+            <button id="deleteAll">
+                DELETE ALL
+            </button>
+            <button id="deleteDones">
+                DELETE ALL DONES
+            </button>
+        </div> 
+         
+    </main>  
     <script src="main.js"></script>
 </body>
 </html>
