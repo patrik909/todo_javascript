@@ -1,9 +1,65 @@
 body{
     font-family: 'Open Sans', sans-serif;
-    background: #ededed;
+    background: #c8c8c8; /*Alternativt #ededed*/
     font-size: 12px;
     padding: 0;
+    padding-top: 50px;
+    padding-bottom: 50px;
     margin: 0;
+}
+
+#messageBox{
+            width: 60%;
+    margin: auto;
+    height: 42px;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    font-weight: 600;
+    padding: 1px;
+    border-radius: 5px;
+}
+
+.message{
+    background: rgba(255, 255, 0, 0.6);
+    transition: 300ms;
+
+    color: #6a6900;
+}
+
+
+.wrong{
+    background: rgba(255, 0, 0, 0.6);
+    color:#6a0000;
+    opacity: 0;
+    transition: 300ms;
+    
+}
+
+.wrong{
+    opacity: 1;
+}
+
+.fadeIn{
+    opacity: 1;
+    transition: 400ms;
+}
+
+.success{
+    background: rgba(0, 255, 0, 0.6);
+   width: 60%;
+    margin: auto;
+    color: #026a00;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    font-weight: 600;
+    padding: 1px;
+    border-radius: 5px;  
+        opacity: 0;
+    transition: 300ms;
+}
+
+.success{
+    opacity: 1;
 }
 
 /*------ GENERAL -----*/
@@ -15,22 +71,48 @@ main{
     margin: auto;
     
 }
-
+h1{
+    font-size: 4.3em;
+    font-style: italic;
+    -webkit-text-fill-color: #f9f9f9;
+   -webkit-text-stroke-width: 1px;
+   -webkit-text-stroke-color: black;
+    margin: 0;
+    padding-top: 40px;
+    padding-bottom: 30px;
+}
 form{
-    padding: 10px;
-    background: #a0a0a0;
+    padding: 10px 10px 0 10px;
 }
 
 #whatTodo{
-    font-size: 0.8em;
+    font-size: 0.9em;
     letter-spacing: 1px;
     padding: 8px;
     width: 300px;
-    border: none;
+    border-radius: 3px;
+    box-sizing: border-box;
+    border: 1px solid #757575;
 }
 
-h1{
-    font-size: 2.5em;
+form button{
+    font-size: 0.9em;
+    font-weight: 400;
+    padding: 9px 15px;
+    margin-left: 10px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    background: black;
+    color: white;
+    border: none;
+    transition:0.4s;
+}
+form button:hover{
+    background: #5c5c5c;
+}
+
+h2{
+    font-size: 2.2em;
     letter-spacing: 5px;
     font-weight: 800;
     font-weight: 900;
@@ -45,6 +127,35 @@ h1{
     margin-bottom: 10px;
     border-radius: 10px;
 }
+
+.doneBox{
+    width: 70%;
+    padding: 15px;
+    padding-bottom: 20px;
+    margin: auto;
+    background: #eee9e9;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.hide{
+    animation: fadeOut 500ms;
+}
+
+.show{
+    animation: fadeIn 500ms;
+}
+@keyframes fadeIn {
+  100%   { opacity: 1;  width: 70%}
+  0% { opacity: 0; width: 0%}
+}
+
+@keyframes fadeOut {
+  100%   { opacity: 0; width: 0%}
+  0% { opacity: 1;  width: 70%}
+}
+
+
 
 .todoBox p{
     font-size: 1.2em;
@@ -62,18 +173,54 @@ h1{
     font-weight: 600;
     font-size: 0.6em;
     font-style: italic;
+    transition:0.4s;
+}
+
+.doneBox button:hover{
+    background: #5c5c5c;    
+}
+
+.doneBox p{
+    font-size: 1.2em;
+    margin: 0;
+    margin-bottom: 12px;
+}
+
+.doneBox button{
+    background: #363636;
+    border-radius: 25px;
+    border: none;
+    height: 23px;
+    width: 23px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.6em;
+    font-style: italic;
+    transition:0.4s;
+}
+
+.doneBox button:hover{
+    background: #5c5c5c;    
 }
 
 /*------------------*/
 
+
+.underline{
+    border-bottom: 1px solid black;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    width: 70%;
+}
 /*--- DELETE ALL ---*/
 
-#delete{
+.delete{
     display: flex;
     justify-content: center;
 }
 
-#delete button{
+.delete button{
     font-size: 0.9em;
     letter-spacing: 1px;
     border: none;
@@ -81,7 +228,7 @@ h1{
     margin: 20px 30px 50px 30px;
 }
 
-#delete button:hover{
+.delete button:hover{
     text-decoration: underline;    
 }
 

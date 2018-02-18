@@ -5,8 +5,35 @@ const messageBox = document.getElementById('messageBox');
 const todoList = document.getElementById('todos');
 const doneList = document.getElementById('dones');
 
-const todoArray = [];
-const doneArray = [];
+function todoArr(){
+    var todoArray = new Array;
+    var todos_str = localStorage.getItem('todo');
+        todoArray = JSON.parse(todos_str); 
+    
+
+    return todoArray;
+
+}
+
+function doneArr(){
+    var doneArray = new Array;
+    var dones_str = localStorage.getItem('done');
+        doneArray = JSON.parse(dones_str); 
+    
+    return doneArray;
+
+}
+
+const todoArray = todoArr();
+const doneArray = doneArr();
+
+
+if(todoArray.length < 1){
+    messageBox.innerHTML=`<p>THERE IS NO TODOS, FEEL FREE TO ADD ONE!</p>`
+} else {
+     messageBox.innerHTML=`<p>SEE YOUR TODOS/DONES BELOW!</p>`   
+}
+
 
 /* --------------------------- */
 /* ------- ADDA EN TODO ------ */
@@ -18,27 +45,40 @@ newTodo.addEventListener('submit', function(){
 })
 
 function addTodo(){
-
     event.preventDefault();
     const todoValue = whatTodo.value;
+    
     const searchValue = todoArray.indexOf(todoValue);
-    console.log(searchValue)
+
 
     
     if(todoValue == ""){
+        messageBox.classList.remove('message')
+        messageBox.classList.remove('success')
+        messageBox.classList.add('wrong')
+  
         messageBox.innerHTML=`
-            <p>DU MATADE INTE IN NÅGOT</p>
-        `   
+            <p>DU MATADE INTE IN NÅGOT</p>`
     } else if(searchValue !== -1){
+        messageBox.classList.remove('success')
+        messageBox.classList.add('wrong')
         messageBox.innerHTML=`
             <p>TODO FINNS REDAN</p>
         ` 
     } else {
-        messageBox.innerHTML="";
-        todoArray.push(todoValue);
+        messageBox.classList.remove('wrong')
+        messageBox.classList.add('success')
+        messageBox.innerHTML=`
+            <p>DU HAR LAGT TILL EN TODO!</p>
+        `;
+        todoArray.unshift(todoValue);
+        localStorage.setItem('todo', JSON.stringify(todoArray));
+        hello = true
+        viewTodo(hello);
+        setTimeout(function(){
+            hello = false
+        })
     }
-    
-    viewTodo();
 
 } 
 
@@ -49,37 +89,99 @@ function addTodo(){
 /* ------------------------------ */
 
 function completeTodo(){
-    this.parentElement.remove();
-    
+
     const todoBox = this.parentElement
     const todoBoxParagraph = todoBox.getElementsByTagName('p')[0];
     const value = todoBoxParagraph.textContent;
-    doneArray.push(value);
-    
     const searchValue = todoArray.indexOf(value);
+   
+    todoBox.classList.add('hide');
+    console.log(todoBox)
+    setTimeout(function(){
     if(searchValue !== -1){ 
         todoArray.splice(searchValue, 1);
+        localStorage.setItem('todo', JSON.stringify(todoArray));
+        messageBox.classList.remove('success')
+        messageBox.classList.remove('wrong')
+        messageBox.classList.add('message')
+        messageBox.innerHTML=`
+            <p>YOU'VE COMPLETED A TODO</p>
+        ` 
     }
+        viewTodo()
+    }, 500)
+    
 
-    viewDones();
+    doneArray.unshift(value);
+    localStorage.setItem('done', JSON.stringify(doneArray));
+    setTimeout(function(){
+        hello = true
+        viewDones(hello);
+        setTimeout(function(){
+            hello = false
+        })
+    },500)
+  
+
+    
 }
 ///------------------------------///
 
 /* ------------------------------ */
 /* -------- TA BORT TODO -------- */
 /* ------------------------------ */
-function remove(){
-    this.parentElement.remove();
+function removeTodo(){
+
     
+        const todoBox = this.parentElement
+    const todoBoxParagraph = todoBox.getElementsByTagName('p')[0];
+    const value = todoBoxParagraph.textContent;
+    const searchValue = todoArray.indexOf(value);
+   
+    todoBox.classList.add('hide');
+    console.log(todoBox)
+    
+    setTimeout(function(){
+    if(searchValue !== -1){ 
+        todoArray.splice(searchValue, 1);
+        localStorage.setItem('todo', JSON.stringify(todoArray));
+        messageBox.classList.remove('success')
+        messageBox.classList.remove('wrong')
+        messageBox.classList.add('message')
+        messageBox.innerHTML=`
+            <p>YOU'VE REMOVED A TODO</p>
+        ` 
+    }  
+    viewTodo()
+    }, 500)
+
+
+}
+
+function removeDone(){
+   
     const todoBox = this.parentElement
     const todoBoxParagraph = todoBox.getElementsByTagName('p')[0];
     const value = todoBoxParagraph.textContent;
-
-    const searchValue = todoArray.indexOf(value);
-    if(searchValue !== -1){ 
-        todoArray.splice(searchValue, 1);
-    }
+    const searchValue = doneArray.indexOf(value);
+   
+    todoBox.classList.add('hide');
+    todoBox.classList.remove('show')
+    console.log(todoBox)
     
+    setTimeout(function(){
+    if(searchValue !== -1){ 
+        doneArray.splice(searchValue, 1);
+        localStorage.setItem('done', JSON.stringify(doneArray));
+        messageBox.classList.remove('success')
+        messageBox.classList.remove('wrong')
+        messageBox.classList.add('message')
+        messageBox.innerHTML=`
+            <p>YOU'VE REMOVED A DONE</p>
+        ` 
+    }
+    viewDones()
+    }, 500)
 }
 ///------------------------------///
 
@@ -93,10 +195,41 @@ const deleteAll = document.getElementById('deleteAll');
 
 const deleteDones = document.getElementById('deleteDones');
 
+function emptyTodos(){
+todoList.classList.add('hide');
+   
+ setTimeout(function(){  
+for(var i = todoArray.length; i > 0; i--){
+     
+ todoArray.pop();
+ localStorage.setItem('todo', JSON.stringify(todoArray));
+    
+} 
+    
+todoList.classList.remove('hide');
+viewTodo();    
+ }, 500)   
+        
+}
+
+function emptyDones(){
+    
+        doneList.classList.add('hide');
+    
+    setTimeout(function(){
+     for(var i = doneArray.length; i > 0; i--){
+    
+         doneArray.pop();
+        localStorage.setItem('done', JSON.stringify(doneArray));
+    } 
+         doneList.classList.remove('hide');
+        viewDones();
+    }, 500)
+        
+}
 
 deleteTodos.addEventListener('click', function(){
-    emptyTodos();
-})
+    emptyTodos()})
 
 deleteAll.addEventListener('click', function(){
     emptyTodos();
@@ -107,42 +240,15 @@ deleteDones.addEventListener('click', function(){
     emptyDones();
 })
 
-
-
-function emptyTodos(){
-
-for(var i = todoArray.length; i > 0; i--){
- 
- todoArray.pop();
- 
-} 
-    
-    viewTodo();
-        
-}
-
-function emptyDones(){
-
-    for(var i = doneArray.length; i > 0; i--){
- 
-        doneArray.pop();
- 
-    } 
-    
-    viewDones();
-        
-}
 ///------------------------------///
 
 /* --------------------------- */
 /* -------- VISA TODOS ------- */
 /* --------------------------- */
-
+var hello = false
 function viewTodo(){
-
     let myTodos=""; 
     i = 0;
-
     for (const todos of todoArray){
         myTodos += `
             <div class="todoBox" id=${i++}>
@@ -155,7 +261,15 @@ function viewTodo(){
     }
 
     todoList.innerHTML = myTodos;
-    
+ 
+    if(hello === true){
+        const newTodoBox = document.getElementsByClassName('todoBox')[0]
+        newTodoBox.classList.add('show');
+        setTimeout(function(){
+            newTodoBox.classList.remove('show');
+        },500)
+    }
+ 
     const completeButton = document.getElementsByClassName('completeButton');
     
     for(i = 0; i < completeButton.length; i++){
@@ -166,11 +280,8 @@ function viewTodo(){
     const removeButton = document.getElementsByClassName('removeButton');
     
     for(i = 0; i < removeButton.length; i++){
-        removeButton[i].addEventListener('click', remove)
+        removeButton[i].addEventListener('click', removeTodo)
     }
-    
-
-
 
 }
 ///---------------------------///
@@ -185,21 +296,29 @@ function viewDones(){
 
     for (const dones of doneArray){
         myDones += `
-            <div class="todoBox" id=${i++}>
+            <div class="doneBox" id=${i++}>
                 <p>${dones}</p>
                 <button id="todoRemoveButton" class="removeButton">X</button>
             </div>
         ` 
     }  
     doneList.innerHTML = myDones;
-
     
+    if(hello === true){
+        const newTodoBox = document.getElementsByClassName('doneBox')[0]
+        newTodoBox.classList.add('show');
+        setTimeout(function(){
+            newTodoBox.classList.remove('show');    
+        },500)
+    }
+
     const removeButton = document.getElementsByClassName('removeButton');
     
     for(i = 0; i < removeButton.length; i++){
-        removeButton[i].addEventListener('click', remove)
+        removeButton[i].addEventListener('click', removeDone)
     }
-    console.log(todoArray)
-    console.log(doneArray)
     
 }
+
+viewTodo();
+viewDones();

@@ -7,26 +7,31 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-    <header>
-        <div class="banner"></div>
-    </header>  
     <main>
-               <form id="newTodo">
+        <h1>YOUR TODO LIST!</h1>
+        <form id="newTodo">
             <input type="text" name="whatTodo" id="whatTodo" placeholder="WHAT TODO..">
-            <input type="submit" name="addTodoButton" id="addTodoButton">
-            <div id="messageBox"></div>
+            <button id="addTodoButton">
+                ADD YOUR TODO
+            </button>
         </form>
+        
+        <div id="messageBox" class="message"></div>
+        
         <div id="wrapper">
         <div id="todoWrapper">
-            <h1>YOUR TODOS</h1>
+            <h2>YOUR TODOS</h2>
             <div id="todos"></div>
-            </div>
-        <div id="doneWrapper">
-            <h1>YOUR DONES</h1>
-            <div id="dones"></div>
         </div>
-    </div> 
-        <div id="delete">
+            <div id="doneWrapper">
+                <h2>YOUR DONES</h2>
+                <div id="dones"></div>
+            </div>
+        </div> 
+       
+        <div class="underline"></div>
+       
+        <div class="delete">
             <button id="deleteTodos">
                 DELETE ALL TODOS
             </button>
