@@ -5,6 +5,15 @@ const messageBox = document.getElementById('messageBox');
 const todoList = document.getElementById('todos');
 const doneList = document.getElementById('dones');
 
+const deleteTodos = document.getElementById('deleteTodos');
+const deleteAll = document.getElementById('deleteAll');
+const deleteDones = document.getElementById('deleteDones');
+
+
+/* --------------------------- */
+/* ----- TODO/DONE ARRAYS ---- */
+/* --------------------------- */
+
 function todoArr(){
     var todoArray = new Array;
     var todos_str = localStorage.getItem('todo');
@@ -27,65 +36,70 @@ function doneArr(){
 const todoArray = todoArr();
 const doneArray = doneArr();
 
-
 if(todoArray.length < 1){
-    messageBox.innerHTML=`<p>THERE IS NO TODOS, FEEL FREE TO ADD ONE!</p>`
+    // If statement that displays message whether or not there is any TODOS in the todoArray
+    messageBox.innerHTML=`
+        <p>THERE IS NO TODOS, FEEL FREE TO ADD ONE</p>
+    `; 
 } else {
-     messageBox.innerHTML=`<p>SEE YOUR TODOS/DONES BELOW!</p>`   
+    messageBox.innerHTML=`
+        <p>SEE YOUR TODOS/DONES BELOW!</p>
+    `;   
 }
 
 
 /* --------------------------- */
-/* ------- ADDA EN TODO ------ */
+/* --------- ADD TODO -------- */
 /* --------------------------- */
-
 
 newTodo.addEventListener('submit', function(){
     addTodo(event);
-})
+});
 
 function addTodo(){
+    
     event.preventDefault();
     const todoValue = whatTodo.value;
-    
     const searchValue = todoArray.indexOf(todoValue);
-
-
+    // Matches the input-value with values in todoArray
     
     if(todoValue == ""){
-        messageBox.classList.remove('message')
-        messageBox.classList.remove('success')
-        messageBox.classList.add('wrong')
-  
+        //Message for empty input field
+        messageBox.classList.remove('message');
+        messageBox.classList.remove('success');
+        messageBox.classList.add('wrong');
         messageBox.innerHTML=`
-            <p>DU MATADE INTE IN NÅGOT</p>`
+            <p>YOU LEFT THE TODO FIELD EMPTY</p>
+        `;
     } else if(searchValue !== -1){
-        messageBox.classList.remove('success')
-        messageBox.classList.add('wrong')
+        //Message if input-value matches an existing value in todoArray
+        messageBox.classList.remove('success');
+        messageBox.classList.add('wrong');
         messageBox.innerHTML=`
-            <p>TODO FINNS REDAN</p>
-        ` 
+            <p>THIS TODO IS ALREADY EXISTING</p>
+        `; 
     } else {
-        messageBox.classList.remove('wrong')
-        messageBox.classList.add('success')
+        //If not matching already existing value in todoArray, or input-field is left empty
+        messageBox.classList.remove('wrong');
+        messageBox.classList.add('success');
         messageBox.innerHTML=`
-            <p>DU HAR LAGT TILL EN TODO!</p>
+            <p>YOU HAVE ADDED A TODO!</p>
         `;
         todoArray.unshift(todoValue);
         localStorage.setItem('todo', JSON.stringify(todoArray));
         hello = true
         viewTodo(hello);
-        setTimeout(function(){
-            hello = false
-        })
+        hello = false
+        /*Here using false to stop the if statement that triggers the animation in viewTodo and viewDones. 
+        
+        Else the animation for todo/doneBox[0] will keep running.*/
     }
 
-} 
+}
 
-///---------------------------///
 
 /* ------------------------------ */
-/* --------- UTFÖRD TODO -------- */
+/* ------- COMPLETED TODO ------- */
 /* ------------------------------ */
 
 function completeTodo(){
@@ -96,7 +110,10 @@ function completeTodo(){
     const searchValue = todoArray.indexOf(value);
    
     todoBox.classList.add('hide');
-    console.log(todoBox)
+    /* Triggers the animation when completing a TODO
+       To make this smoother setTimeout is used to let the 'hide' animation finish.
+      
+       Then matching the value, with values in todoArray and then deleting it. */
     setTimeout(function(){
     if(searchValue !== -1){ 
         todoArray.splice(searchValue, 1);
@@ -111,48 +128,44 @@ function completeTodo(){
         viewTodo()
     }, 500)
     
-
     doneArray.unshift(value);
     localStorage.setItem('done', JSON.stringify(doneArray));
+    
     setTimeout(function(){
         hello = true
         viewDones(hello);
-        setTimeout(function(){
-            hello = false
-        })
+        hello = false
     },500)
-  
-
-    
+   
 }
-///------------------------------///
+
 
 /* ------------------------------ */
-/* -------- TA BORT TODO -------- */
+/* ---- REMOVE A TODO / DONE ---- */
 /* ------------------------------ */
 function removeTodo(){
 
-    
-        const todoBox = this.parentElement
+    // This works a lot like the completeTodo function, besides it doesn't add anything.
+    const todoBox = this.parentElement
     const todoBoxParagraph = todoBox.getElementsByTagName('p')[0];
     const value = todoBoxParagraph.textContent;
     const searchValue = todoArray.indexOf(value);
    
     todoBox.classList.add('hide');
-    console.log(todoBox)
     
+
     setTimeout(function(){
-    if(searchValue !== -1){ 
-        todoArray.splice(searchValue, 1);
-        localStorage.setItem('todo', JSON.stringify(todoArray));
-        messageBox.classList.remove('success')
-        messageBox.classList.remove('wrong')
-        messageBox.classList.add('message')
-        messageBox.innerHTML=`
-            <p>YOU'VE REMOVED A TODO</p>
-        ` 
-    }  
-    viewTodo()
+        if(searchValue !== -1){ 
+            todoArray.splice(searchValue, 1);
+            localStorage.setItem('todo', JSON.stringify(todoArray));
+            messageBox.classList.remove('success')
+            messageBox.classList.remove('wrong')
+            messageBox.classList.add('message')
+            messageBox.innerHTML=`
+                <p>YOU'VE REMOVED A TODO</p>
+            ` 
+        }  
+        viewTodo()
     }, 500)
 
 
@@ -166,89 +179,87 @@ function removeDone(){
     const searchValue = doneArray.indexOf(value);
    
     todoBox.classList.add('hide');
-    todoBox.classList.remove('show')
-    console.log(todoBox)
+
     
     setTimeout(function(){
-    if(searchValue !== -1){ 
-        doneArray.splice(searchValue, 1);
-        localStorage.setItem('done', JSON.stringify(doneArray));
-        messageBox.classList.remove('success')
-        messageBox.classList.remove('wrong')
-        messageBox.classList.add('message')
-        messageBox.innerHTML=`
-            <p>YOU'VE REMOVED A DONE</p>
-        ` 
-    }
-    viewDones()
-    }, 500)
-}
-///------------------------------///
+        if(searchValue !== -1){ 
+            doneArray.splice(searchValue, 1);
+            localStorage.setItem('done', JSON.stringify(doneArray));
+            messageBox.classList.remove('success');
+            messageBox.classList.remove('wrong');
+            messageBox.classList.add('message');
+            messageBox.innerHTML=`
+                <p>YOU'VE REMOVED A DONE</p>
+            `; 
+        };
+        viewDones();
+    }, 500);
+};
+
 
 /* ------------------------------ */
-/* - TA BORT ALLA TODOS & DONES - */
+/* -------- CLEAR ARRAYS -------- */
 /* ------------------------------ */
-
-const deleteTodos = document.getElementById('deleteTodos');
-
-const deleteAll = document.getElementById('deleteAll');
-
-const deleteDones = document.getElementById('deleteDones');
 
 function emptyTodos(){
-todoList.classList.add('hide');
-   
- setTimeout(function(){  
-for(var i = todoArray.length; i > 0; i--){
-     
- todoArray.pop();
- localStorage.setItem('todo', JSON.stringify(todoArray));
     
-} 
-    
-todoList.classList.remove('hide');
-viewTodo();    
- }, 500)   
+    todoList.classList.add('hide');
+    //First triggering the animation on todoList, when removes the values in the array, with the for loop below.
+    setTimeout(function(){  
+        for(var i = todoArray.length; i > 0; i--){
+
+            todoArray.pop();
+            localStorage.setItem('todo', JSON.stringify(todoArray));
+
+        };
+        todoList.classList.remove('hide');
+        //Removing the 'hide' animation to make it work when triggered again.
+        viewTodo();    
+    }, 500);
         
-}
+};
 
 function emptyDones(){
     
-        doneList.classList.add('hide');
+    doneList.classList.add('hide');
     
     setTimeout(function(){
-     for(var i = doneArray.length; i > 0; i--){
+        for(var i = doneArray.length; i > 0; i--){
     
-         doneArray.pop();
-        localStorage.setItem('done', JSON.stringify(doneArray));
-    } 
-         doneList.classList.remove('hide');
+            doneArray.pop();
+            localStorage.setItem('done', JSON.stringify(doneArray));
+        };
+        doneList.classList.remove('hide');
         viewDones();
-    }, 500)
+    }, 500);
         
-}
+};
 
 deleteTodos.addEventListener('click', function(){
-    emptyTodos()})
+    emptyTodos();
+});
 
 deleteAll.addEventListener('click', function(){
     emptyTodos();
     emptyDones();
-})
+});
 
 deleteDones.addEventListener('click', function(){
     emptyDones();
-})
+});
 
-///------------------------------///
 
 /* --------------------------- */
-/* -------- VISA TODOS ------- */
+/* ----- VIEW TODOS/DONES ---- */
 /* --------------------------- */
-var hello = false
+
+var hello = false;
+
 function viewTodo(){
+    
     let myTodos=""; 
     i = 0;
+    
     for (const todos of todoArray){
         myTodos += `
             <div class="todoBox" id=${i++}>
@@ -256,15 +267,15 @@ function viewTodo(){
                 <button id="todoCompleteButton" class="completeButton">V</button>
                 <button id="todoRemoveButton" class="removeButton">X</button>
             </div>
-        ` 
-
-    }
+        `; 
+    };
 
     todoList.innerHTML = myTodos;
  
     if(hello === true){
-        const newTodoBox = document.getElementsByClassName('todoBox')[0]
+        const newTodoBox = document.getElementsByClassName('todoBox')[0];
         newTodoBox.classList.add('show');
+        
         setTimeout(function(){
             newTodoBox.classList.remove('show');
         },500)
@@ -273,25 +284,22 @@ function viewTodo(){
     const completeButton = document.getElementsByClassName('completeButton');
     
     for(i = 0; i < completeButton.length; i++){
-        completeButton[i].addEventListener('click', completeTodo)
-    }
+        completeButton[i].addEventListener('click', completeTodo);
+    };
     
     
     const removeButton = document.getElementsByClassName('removeButton');
     
     for(i = 0; i < removeButton.length; i++){
-        removeButton[i].addEventListener('click', removeTodo)
-    }
+        removeButton[i].addEventListener('click', removeTodo);
+    };
 
-}
+};
+
 ///---------------------------///
 
-/* --------------------------- */
-/* ----- VISA AVKLARADE ------ */
-/* --------------------------- */
-
 function viewDones(){
-      let myDones=""; 
+    let myDones=""; 
     i = 0;
 
     for (const dones of doneArray){
@@ -300,8 +308,9 @@ function viewDones(){
                 <p>${dones}</p>
                 <button id="todoRemoveButton" class="removeButton">X</button>
             </div>
-        ` 
-    }  
+        `; 
+    };  
+    
     doneList.innerHTML = myDones;
     
     if(hello === true){
@@ -309,16 +318,16 @@ function viewDones(){
         newTodoBox.classList.add('show');
         setTimeout(function(){
             newTodoBox.classList.remove('show');    
-        },500)
-    }
+        },500);
+    };
 
     const removeButton = document.getElementsByClassName('removeButton');
     
     for(i = 0; i < removeButton.length; i++){
-        removeButton[i].addEventListener('click', removeDone)
-    }
+        removeButton[i].addEventListener('click', removeDone);
+    };
     
-}
+};
 
 viewTodo();
 viewDones();
