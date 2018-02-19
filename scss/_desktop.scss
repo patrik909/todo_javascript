@@ -1,0 +1,48 @@
+body{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    .wrapper{
+        max-width: 650px;
+        margin: auto;
+        header{
+            /* All header styling goes here */
+            h1{
+                font-size: 4.6em;
+            }
+            form{
+                width: 75%;
+                margin: auto;
+                #whatTodo{
+                    width: 60%;
+                padding: 10px;    
+                }
+                button{
+                    margin-left: 10px;
+                    padding: 11px;
+                    width: 35%;    
+                }
+            }
+            #messageBox{
+                margin-top: 30px;
+                width: 60%;
+            }
+        }
+
+        main{
+            /* All main styling goes here */
+            .todoBox{
+                width: 65%;
+            }
+            .doneBox{
+                width: 65%;
+            }
+        }
+
+        footer{
+            /* All footer styling goes here */
+            .underline{
+                width: 70%;
+            }
+        }
+    }
+}

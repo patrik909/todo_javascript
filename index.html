@@ -1,36 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>YOUR TODO LIST</title>
-    <link rel="shortcut icon" href="images/title.jpg" type="image/png">
+    <link rel="shortcut icon" href="images/title.PNG" type="image/png">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800|Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
+
 <body>
-    <main>
-        <h1>YOUR TODO LIST!</h1>
+    
+    <div class="wrapper">
+    
+    <header>    
+        <h1>YOUR TODO LIST!</h1>       
         <form id="newTodo">
             <input type="text" name="whatTodo" id="whatTodo" placeholder="WHAT TODO..">
             <button id="addTodoButton">
                 ADD YOUR TODO
             </button>
-        </form>
-        
-        <div id="messageBox" class="message"></div>
-        
-        <div id="wrapper">
-        <div id="todoWrapper">
-            <h2>YOUR TODOS</h2>
-            <div id="todos"></div>
-        </div>
+        </form>  
+        <div id="messageBox" class="message"></div> 
+    </header>
+    
+    <main>              
+        <div class="listWrappers">        
+            <div id="todoWrapper">
+                <h2>YOUR TODOS</h2>
+                <div id="todos"></div>
+            </div>           
             <div id="doneWrapper">
                 <h2>YOUR DONES</h2>
-                <div id="dones"></div>
-            </div>
-        </div> 
-       
+            <div id="dones"></div>
+            </div>          
+        </div>          
+    </main>
+    
+    <footer>        
         <div class="underline"></div>
        
         <div class="delete">
@@ -43,9 +51,11 @@
             <button id="deleteDones">
                 DELETE ALL DONES
             </button>
-        </div> 
-         
-    </main>  
+        </div>             
+    </footer>
+    
+    </div>
+      
     <script src="main.js"></script>
 </body>
 </html>

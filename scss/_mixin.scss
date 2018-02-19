@@ -1,0 +1,52 @@
+$backgroundColor: #c8c8c8;
+$mainColor: #f9f9f9;
+  
+@keyframes fadeIn {
+  100%   { opacity: 1;  width: 70%}
+  0% { opacity: 0; width: 0%}
+}
+
+@keyframes fadeOut {
+  100%   { opacity: 0; width: 0%;}
+  0% { opacity: 1;  width: 70%;}
+}
+    
+@mixin navLinks{
+    font-family: 'Impact';
+    letter-spacing: 2px;
+}
+
+@mixin fontStyle{
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+@mixin boxStyling{
+    padding: 15px;
+    padding-bottom: 20px;
+    margin: auto;
+    background: #eee9e9;
+    margin-bottom: 10px;
+    border-radius: 10px;    
+}
+
+@mixin boxParagraphStyling{
+    font-size: 1.2em;
+    margin: 0;
+    margin-bottom: 12px;    
+}
+
+@mixin boxButtonStyling{
+    background: #363636;
+    border-radius: 25px;
+    border: none;
+    height: 22px;
+    width: 22px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.6em;
+    font-style: italic;
+    transition:0.4s;
+}
