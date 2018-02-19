@@ -147,15 +147,6 @@ h2{
     animation: fadeIn 500ms;
 }
 
-.hideList{
-    animation: listFadeOut 500ms;
-}
-
-@keyframes listFadeOut {
-  100%   { opacity: 0; height: 0px;}
-  0% { opacity: 1; height: inherit;}
-}
-
 @keyframes fadeIn {
   100%   { opacity: 1;  width: 70%}
   0% { opacity: 0; width: 0%}
