@@ -14,7 +14,7 @@ body{
                 margin: auto;
                 #whatTodo{
                     width: 60%;
-                padding: 10px;    
+                    padding: 10px;    
                 }
                 button{
                     margin-left: 10px;
@@ -26,7 +26,7 @@ body{
                 margin-top: 30px;
                 width: 60%;
             }
-        }
+        } //End tag for header
 
         main{
             /* All main styling goes here */
@@ -36,13 +36,13 @@ body{
             .doneBox{
                 width: 65%;
             }
-        }
+        } //End tag for main
 
         footer{
             /* All footer styling goes here */
             .underline{
                 width: 70%;
             }
-        }
-    }
-}
+        } //End tag for footer
+    } //End tag for wrapper
+} //End tag for body
