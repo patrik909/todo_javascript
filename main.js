@@ -34,6 +34,7 @@ function doneArr(){
     const dones = localStorage.getItem('done');
     
     const doneArray = JSON.parse(dones);
+    
     if(dones == null){
         const doneArray = new Array;   
     }
@@ -55,7 +56,7 @@ if(todoArray.length < 1){
     messageBox.innerHTML=`
         <p>SEE YOUR TODOS/DONES BELOW!</p>
     `;   
-}
+};
 
 
 /* --------------------------- */
@@ -72,22 +73,21 @@ function addTodo(){
     
     if(todoValue == ""){
         //Message for empty input field
-        messageBox.classList.remove('message');
-        messageBox.classList.remove('success');
+        messageBox.classList.remove('message', 'success');
         messageBox.classList.add('wrong');
         messageBox.innerHTML=`
-            <p>YOU LEFT THE TODO FIELD EMPTY</p>
+            <p>YOU LEFT THE INPUT FIELD EMPTY</p>
         `;
     } else if(searchValue !== -1){
         //Message if input-value matches an existing value in todoArray.
-        messageBox.classList.remove('success');
+        messageBox.classList.remove('message', 'success');
         messageBox.classList.add('wrong');
         messageBox.innerHTML=`
             <p>THIS TODO IS ALREADY EXISTING</p>
         `; 
     } else {
         //If not matching already existing value in todoArray, or input-field is left empty
-        messageBox.classList.remove('wrong');
+        messageBox.classList.remove('wrong', 'message');
         messageBox.classList.add('success');
         messageBox.innerHTML=`
             <p>YOU HAVE ADDED A TODO!</p>
@@ -97,11 +97,11 @@ function addTodo(){
         localStorage.setItem('todo', JSON.stringify(todoArray));
         //Adds the value to todoArray and converts the todoArray to string.
         
-        hello = true
-        viewTodo(hello);
-        //Runs the viewTodos function
-        hello = false
-        /*Here using false to stop the if statement that triggers the animation in viewTodo and viewDones. 
+        animationTrigger = true;
+        viewTodos(animationTrigger);
+        //Runs the viewTodos function and triggers the animation
+        animationTrigger = false;
+        /*Here using false to stop the if statement that triggers the animation in viewTodos and viewDones. 
         
         Else the animation for todo/doneBox[0] will keep running.*/
     }
@@ -132,29 +132,28 @@ function completeTodo(){
         todoArray.splice(searchValue, 1);
         localStorage.setItem('todo', JSON.stringify(todoArray));
         //Works the same way as in addTodo function
-        messageBox.classList.remove('success')
-        messageBox.classList.remove('wrong')
-        messageBox.classList.add('message')
+        messageBox.classList.remove('success', 'wrong');
+        messageBox.classList.add('message');
         messageBox.innerHTML=`
             <p>YOU'VE COMPLETED A TODO</p>
         ` 
-    }
-        viewTodo()
+    };
+        viewTodos();
         //After adding the value to the array viewTodos function runs, to update the displaying values.
-    }, 500)
+    }, 500);
     
     doneArray.unshift(value);
     localStorage.setItem('done', JSON.stringify(doneArray));
     //Adds the value to first index of doneArray, and converts the doneArray to string.
     
     setTimeout(function(){
-        hello = true
-        viewDones(hello);
-        hello = false
+        animationTrigger = true
+        viewDones(animationTrigger);
+        animationTrigger = false
         //Works the same way as in addTodo function
-    },500)
+    },500);
    
-}
+};
 
 
 /* ------------------------------ */
@@ -173,32 +172,30 @@ function removeTodo(){
    
     todoBox.classList.add('hide');
     
-
     setTimeout(function(){
         if(searchValue !== -1){ 
             todoArray.splice(searchValue, 1);
             localStorage.setItem('todo', JSON.stringify(todoArray));
-            messageBox.classList.remove('success')
-            messageBox.classList.remove('wrong')
-            messageBox.classList.add('message')
+            messageBox.classList.remove('success', 'wrong');
+            messageBox.classList.add('message');
             messageBox.innerHTML=`
                 <p>YOU'VE REMOVED A TODO</p>
             ` 
         }  
-        viewTodo()
-    }, 500)
+        viewTodos();
+    }, 500);
 
 
-}
+};
 
 function removeDone(){
    
-    const todoBox = this.parentElement
-    const todoBoxParagraph = todoBox.getElementsByTagName('p')[0];
-    const value = todoBoxParagraph.textContent;
+    const doneBox = this.parentElement
+    const doneBoxParagraph = doneBox.getElementsByTagName('p')[0];
+    const value = doneBoxParagraph.textContent;
     const searchValue = doneArray.indexOf(value);
    
-    todoBox.classList.add('hide');
+    doneBox.classList.add('hide');
 
     
     setTimeout(function(){
@@ -234,7 +231,7 @@ function emptyTodos(){
         };
         todoList.classList.remove('hide');
         //Removing the 'hide' class, otherwise the animation wont run again then triggered.
-        viewTodo();    
+        viewTodos();    
     }, 500);
         
 };
@@ -259,10 +256,10 @@ function emptyDones(){
 /* ----- VIEW TODOS/DONES ---- */
 /* --------------------------- */
 
-let hello = false;
+let animationTrigger = false;
 //Default value is false, will get true addTodo or completeTodo runs.
 
-function viewTodo(){
+function viewTodos(){
     
     let myTodos=""; 
     i = 0;
@@ -281,7 +278,7 @@ function viewTodo(){
        Would I've used appendChild the loop rewrite the array over and over again when triggered, instead this will overwrite the previous HTML */
     todoList.innerHTML = myTodos;
     
-    if(hello === true){
+    if(animationTrigger === true){
         /* This statement checks if animatonTrigger is true, if true, it will add the show class to the first box in the todoList, which is the box that hold the latest added(unshift'ed) value to the array. */
         const newTodoBox = document.getElementsByClassName('todoBox')[0];
         newTodoBox.classList.add('show');
@@ -290,8 +287,8 @@ function viewTodo(){
             newTodoBox.classList.remove('show');
             /* The 'show' class have to be removed, otherwise it wont be added next time the statement is triggered.
             It also needs some delay, to let the animation finish */
-        },500)
-    }
+        },500);
+    };
  
     const completeButton = document.getElementsByClassName('completeButton');
     
@@ -323,18 +320,18 @@ function viewDones(){
         myDones += `
             <div class="doneBox" id=${i++}>
                 <p>${done}</p>
-                <button id="todoRemoveButton" class="removeButton">X</button>
+                <button id="removeButton" class="removeButton">X</button>
             </div>
         `; 
     };  
     
     doneList.innerHTML = myDones;
     
-    if(hello === true){
-        const newTodoBox = document.getElementsByClassName('doneBox')[0]
-        newTodoBox.classList.add('show');
+    if(animationTrigger === true){
+        const newDoneBox = document.getElementsByClassName('doneBox')[0]
+        newDoneBox.classList.add('show');
         setTimeout(function(){
-            newTodoBox.classList.remove('show');    
+            newDoneBox.classList.remove('show');    
         },500);
     };
 
@@ -356,18 +353,46 @@ newTodo.addEventListener('submit', function(){
 });
 //Triggers the addTodo function
 
-deleteTodos.addEventListener('click', emptyTodos)
+deleteTodos.addEventListener('click', function(){
+    
+    emptyTodos();
+    
+    messageBox.classList.remove('success');
+    messageBox.classList.remove('wrong');
+    messageBox.classList.add('message');
+    messageBox.innerHTML=`
+        <p>YOU'VE CLEARED YOUR TODO LIST</p>
+    `
+});
 //Triggers the emptyTodos function, that clears todoArray
 
 deleteAll.addEventListener('click', function(){
+    
     emptyTodos();
     emptyDones();
+    
+    messageBox.classList.remove('success');
+    messageBox.classList.remove('wrong');
+    messageBox.classList.add('message');
+    messageBox.innerHTML=`
+        <p>YOU'VE CLEARED BOTH OF YOUR LISTS</p>
+    `;
 });
 ////Triggers the emptyTodos/Dones function, that clears both arrays.
 
-deleteDones.addEventListener('click', emptyDones)
+deleteDones.addEventListener('click', function(){
+    
+    emptyDones();
+
+    messageBox.classList.remove('success');
+    messageBox.classList.remove('wrong');
+    messageBox.classList.add('message');
+    messageBox.innerHTML=`
+        <p>YOU'VE CLEARED YOUR DONE LIST</p>
+    `;
+});
 //Triggers the emptyTodos function, that clears doneArray
 
-viewTodo();
+viewTodos();
 viewDones();
 //Displays the arrays then arriving to the page.
