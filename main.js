@@ -49,13 +49,9 @@ const doneArray = doneArr();
 
 if(todoArray.length < 1){
     // If statement that displays message whether or not there is any TODOS in the todoArray
-    messageBox.innerHTML=`
-        <p>THERE IS NO TODOS, FEEL FREE TO ADD ONE</p>
-    `; 
+    messageBox.innerHTML='<p>THERE IS NO TODOS, FEEL FREE TO ADD ONE</p>'; 
 } else {
-    messageBox.innerHTML=`
-        <p>SEE YOUR TODOS/DONES BELOW!</p>
-    `;   
+    messageBox.innerHTML='<p>SEE YOUR TODOS/DONES BELOW!</p>';   
 };
 
 
@@ -75,23 +71,17 @@ function addTodo(){
         //Message for empty input field
         messageBox.classList.remove('message', 'success');
         messageBox.classList.add('wrong');
-        messageBox.innerHTML=`
-            <p>YOU LEFT THE INPUT FIELD EMPTY</p>
-        `;
+        messageBox.innerHTML='<p>YOU LEFT THE INPUT FIELD EMPTY</p>';
     } else if(searchValue !== -1){
         //Message if input-value matches an existing value in todoArray.
         messageBox.classList.remove('message', 'success');
         messageBox.classList.add('wrong');
-        messageBox.innerHTML=`
-            <p>THIS TODO IS ALREADY EXISTING</p>
-        `; 
+        messageBox.innerHTML='<p>THIS TODO IS ALREADY EXISTING</p>'; 
     } else {
         //If not matching already existing value in todoArray, or input-field is left empty
         messageBox.classList.remove('wrong', 'message');
         messageBox.classList.add('success');
-        messageBox.innerHTML=`
-            <p>YOU HAVE ADDED A TODO!</p>
-        `;
+        messageBox.innerHTML='<p>YOU HAVE ADDED A TODO!</p>';
         todoArray.unshift(todoValue);
         //Adds the value to first index in todoArray
         localStorage.setItem('todo', JSON.stringify(todoArray));
@@ -134,9 +124,7 @@ function completeTodo(){
         //Works the same way as in addTodo function
         messageBox.classList.remove('success', 'wrong');
         messageBox.classList.add('message');
-        messageBox.innerHTML=`
-            <p>YOU'VE COMPLETED A TODO</p>
-        ` 
+        messageBox.innerHTML='<p>YOU HAVE COMPLETED A TODO</p>'; 
     };
         viewTodos();
         //After adding the value to the array viewTodos function runs, to update the displaying values.
@@ -178,10 +166,8 @@ function removeTodo(){
             localStorage.setItem('todo', JSON.stringify(todoArray));
             messageBox.classList.remove('success', 'wrong');
             messageBox.classList.add('message');
-            messageBox.innerHTML=`
-                <p>YOU'VE REMOVED A TODO</p>
-            ` 
-        }  
+            messageBox.innerHTML='<p>YOU HAVE REMOVED A TODO</p>';
+        };
         viewTodos();
     }, 500);
 
@@ -205,9 +191,7 @@ function removeDone(){
             messageBox.classList.remove('success');
             messageBox.classList.remove('wrong');
             messageBox.classList.add('message');
-            messageBox.innerHTML=`
-                <p>YOU'VE REMOVED A DONE</p>
-            `; 
+            messageBox.innerHTML='<p>YOU HAVE REMOVED A DONE</p>'; 
         };
         viewDones();
     }, 500);
@@ -256,22 +240,16 @@ function emptyDones(){
 /* ----- VIEW TODOS/DONES ---- */
 /* --------------------------- */
 
-let animationTrigger = false;
+var animationTrigger = false;
 //Default value is false, will get true addTodo or completeTodo runs.
 
 function viewTodos(){
     
-    let myTodos=""; 
+    var myTodos=""; 
     i = 0;
     
-    for (const todo of todoArray){
-        myTodos += `
-            <div class="todoBox" id=${i++}>
-                <p>${todo}</p>
-                <button id="todoCompleteButton" class="completeButton">V</button>
-                <button id="todoRemoveButton" class="removeButton">X</button>
-            </div>
-        `; 
+    for (var todo of todoArray){
+        myTodos += "<div class='todoBox'><p>" + todo + "</p><button id='todoCompleteButton' class='completeButton'>V</button><button id='todoRemoveButton' class='removeButton'>X</button></div>"; 
     };
     /* For loop that contains all HTML + values.
        The innerHTML below will be written everytime the function is triggered.
@@ -313,16 +291,12 @@ function viewTodos(){
 
 function viewDones(){
     //Work the same way as viewTodos
-    let myDones=""; 
+    var myDones=""; 
     i = 0;
 
-    for (const done of doneArray){
-        myDones += `
-            <div class="doneBox" id=${i++}>
-                <p>${done}</p>
-                <button id="removeButton" class="removeButton">X</button>
-            </div>
-        `; 
+    for (var done of doneArray){
+        
+        myDones += "<div class='doneBox'><p>" + done + "</p><button id='todoRemoveButton' class='removeButton'>X</button></div>";  
     };  
     
     doneList.innerHTML = myDones;
@@ -360,9 +334,7 @@ deleteTodos.addEventListener('click', function(){
     messageBox.classList.remove('success');
     messageBox.classList.remove('wrong');
     messageBox.classList.add('message');
-    messageBox.innerHTML=`
-        <p>YOU'VE CLEARED YOUR TODO LIST</p>
-    `
+    messageBox.innerHTML='<p>YOU HAVE CLEARED YOUR TODO LIST</p>';
 });
 //Triggers the emptyTodos function, that clears todoArray
 
@@ -374,9 +346,7 @@ deleteAll.addEventListener('click', function(){
     messageBox.classList.remove('success');
     messageBox.classList.remove('wrong');
     messageBox.classList.add('message');
-    messageBox.innerHTML=`
-        <p>YOU'VE CLEARED BOTH OF YOUR LISTS</p>
-    `;
+    messageBox.innerHTML='<p>YOU HAVE CLEARED BOTH OF YOUR LISTS</p>';
 });
 ////Triggers the emptyTodos/Dones function, that clears both arrays.
 
@@ -387,9 +357,7 @@ deleteDones.addEventListener('click', function(){
     messageBox.classList.remove('success');
     messageBox.classList.remove('wrong');
     messageBox.classList.add('message');
-    messageBox.innerHTML=`
-        <p>YOU'VE CLEARED YOUR DONE LIST</p>
-    `;
+    messageBox.innerHTML='<p>YOU HAVE CLEARED YOUR DONE LIST</p>';
 });
 //Triggers the emptyTodos function, that clears doneArray
 

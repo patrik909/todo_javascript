@@ -2,21 +2,31 @@ $backgroundColor: #c8c8c8;
 $mainColor: #f9f9f9;
 
 /* Animation CSS below */
+@-webkit-keyframes fadeIn {
+    100%    {opacity: 1;  -webkit-transform: scaleY(1);  transform: scaleY(1);}
+    0%    {opacity: 0; -webkit-transform: scaleY(0); transform: scaleY(0);}
+}
 @keyframes fadeIn {
-    100%    {opacity: 1;  transform: scaleY(1);}
-    0%    {opacity: 0; transform: scaleY(0);}
+    100%    {opacity: 1;  -webkit-transform: scaleY(1);  transform: scaleY(1);}
+    0%    {opacity: 0; -webkit-transform: scaleY(0); transform: scaleY(0);}
+}
+
+@-webkit-keyframes fadeOut {
+    100%    {opacity: 0; -webkit-transform: scaleY(0); transform: scaleY(0);}
+    0%    {opacity: 1; -webkit-transform: scaleY(1); transform: scaleY(1);}
 }
 
 @keyframes fadeOut {
-    100%    {opacity: 0; transform: scaleY(0);}
-    0%    {opacity: 1; transform: scaleY(1);}
+    100%    {opacity: 0; -webkit-transform: scaleY(0); transform: scaleY(0);}
+    0%    {opacity: 1; -webkit-transform: scaleY(1); transform: scaleY(1);}
 }
 
 @mixin fontStyle{
     font-size: 0.9em;
     letter-spacing: 1px;
     border-radius: 3px;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
 }
 /* Styling for boxes below */
 @mixin boxStyling{
@@ -39,10 +49,13 @@ $mainColor: #f9f9f9;
     border-radius: 25px;
     border: none;
     height: 22px;
-    width: 22px;
+    width: 23px;
     color: white;
+    margin: 3px;
     font-weight: 600;
     font-size: 0.6em;
     font-style: italic;
+    -webkit-transition:0.4s;
+    -o-transition:0.4s;
     transition:0.4s;
 }
